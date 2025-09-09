@@ -1,5 +1,5 @@
 // =================================================================
-// ARQUIVO script.js COMPLETO E NA ORDEM CORRETA
+// ARQUIVO script.js COMPLETO E REFATORADO COM ARROW FUNCTIONS
 // =================================================================
 
 // --- 1. Seleção dos Elementos do DOM ---
@@ -18,18 +18,19 @@ let currentPlayer = 'X';
 let gameActive = true;
 let gameState = ["", "", "", "", "", "", "", "", ""];
 
-// --- 3. Funções ---
-function handleCellPlayed(clickedCellIndex) {
+// --- 3. Funções (agora como Arrow Functions) ---
+const handleCellPlayed = (clickedCellIndex) => {
     gameState[clickedCellIndex] = currentPlayer;
     cells[clickedCellIndex].innerHTML = currentPlayer;
-}
+};
 
-function handlePlayerChange() {
+const handlePlayerChange = () => {
+    // Uso do operador ternário para alternar entre 'X' e 'O' de forma concisa.
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     statusMessage.innerHTML = `Vez do jogador ${currentPlayer}`;
-}
+};
 
-function handleResultValidation() {
+const handleResultValidation = () => {
     let roundWon = false;
     for (let i = 0; i < winningConditions.length; i++) {
         const winCondition = winningConditions[i];
@@ -59,23 +60,23 @@ function handleResultValidation() {
     }
 
     handlePlayerChange();
-}
+};
 
-function handleCellClick(clickedCellIndex) {
+const handleCellClick = (clickedCellIndex) => {
     if (gameState[clickedCellIndex] !== "" || !gameActive) {
         return;
     }
     handleCellPlayed(clickedCellIndex);
     handleResultValidation();
-}
+};
 
-function handleRestartGame() {
+const handleRestartGame = () => {
     gameActive = true;
     currentPlayer = 'X';
     gameState = ["", "", "", "", "", "", "", "", ""];
     statusMessage.innerHTML = `Vez do jogador ${currentPlayer}`;
     cells.forEach(cell => cell.innerHTML = "");
-}
+};
 
 // --- 4. Adicionando os "Ouvintes" de Evento (EventListeners) ---
 cells.forEach((cell, index) => {
